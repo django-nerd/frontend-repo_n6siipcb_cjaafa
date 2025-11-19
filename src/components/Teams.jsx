@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+const ACCENT = 'text-[#c8a24d]'
+
 export default function Teams(){
   const [teams, setTeams] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,10 +25,12 @@ export default function Teams(){
   },[])
 
   return (
-    <section id="teams" className="py-16 bg-slate-900">
+    <section id="teams" className="py-20 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-white mb-6">Our Pro Teams</h2>
-        <p className="text-slate-300 mb-10">Elite rosters across the biggest mobile and PC titles.</p>
+        <div className="flex items-end justify-between mb-8">
+          <h2 className="text-3xl font-extrabold text-white">Our Pro Teams</h2>
+          <p className={`text-sm ${ACCENT}`}>BGMI • Valorant • CODM • Free Fire</p>
+        </div>
         {loading ? (
           <p className="text-slate-400">Loading teams...</p>
         ) : (
@@ -35,13 +39,15 @@ export default function Teams(){
               <div className="col-span-full text-slate-400">No teams published yet.</div>
             )}
             {teams.map(team => (
-              <div key={team._id} className="bg-slate-800/60 border border-white/10 rounded-xl p-5">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-white font-semibold text-lg">{team.name}</h3>
-                  <span className="text-xs px-2 py-1 rounded bg-white/10 text-white">{team.game}</span>
+              <div key={team._id} className="bg-black border border-white/10 rounded-xl overflow-hidden group hover:border-white/20 transition">
+                <div className="p-5">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-white font-semibold text-lg group-hover:opacity-90">{team.name}</h3>
+                    <span className="text-xs px-2 py-1 rounded bg-white/10 text-white uppercase tracking-wide">{team.game}</span>
+                  </div>
+                  {team.description && <p className="mt-3 text-slate-300 text-sm">{team.description}</p>}
+                  <div className="mt-4 text-xs text-slate-400">Status: {team.availability || 'available'}</div>
                 </div>
-                {team.description && <p className="mt-3 text-slate-300 text-sm">{team.description}</p>}
-                <div className="mt-4 text-xs text-slate-400">Status: {team.availability || 'available'}</div>
               </div>
             ))}
           </div>
